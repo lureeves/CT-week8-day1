@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
-// import Button from './components/Button';
 import MyForm from './components/MyForm';
-import { useState } from 'react';
+
+// ChatGPT helped me with adding a list. So I can't really take credit for this :(
 
 function App() {
   const [toDos, setToDos] = useState([]);
 
-  // function handleClick() {
-  //   console.log("Button clicked");
-  // }
-
-  function addToDo(toDo) {
-    setToDos([...toDos, toDo]);
+  function addTask(task) {
+    setToDos((prevToDos) => [...prevToDos, task]);
   }
 
   return (
     <div className="App">
       <Navbar />
       <div className="container">
-        {/* Make sure the Button component is imported */}
-        {/* <Button onClick={handleClick} /> Make sure onClick is properly passed */}
-        <MyForm />
+        <MyForm onSubmit={addTask} />
+        <ul>
+          {toDos.map((task, index) => (
+            <li key={index}>{task.task}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
